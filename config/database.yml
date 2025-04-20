@@ -10,15 +10,25 @@
 #   https://dev.mysql.com/doc/refman/5.7/en/password-hashing.html
 #
 default: &default
+# 削除
   adapter: mysql2
+# 削除
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  # 削除
   username: root
   password:
   socket: /tmp/mysql.sock
+  # 削除
 
 development:
   <<: *default
+# 追加
+  adapter: mysql2
+  username: root
+  password:
+  host: localhost
+# 追加
   database: furima_42020_development
 
 # Warning: The database defined as "test" will be erased and
@@ -26,6 +36,12 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
+# 追加
+  adapter: mysql2
+  username: root
+  password:
+  host: localhost
+# 追加
   database: furima_42020_test
 
 # As with config/credentials.yml, you never want to store sensitive information,
@@ -50,6 +66,13 @@ test:
 #
 production:
   <<: *default
+  # 追加
+  adapter: postgresql
+  url: <%= ENV['DATABASE_URL'] %>
+  # 追加
+
+  # 削除
   database: furima_42020_production
   username: furima_42020
   password: <%= ENV["FURIMA_42020_DATABASE_PASSWORD"] %>
+  # 削除
