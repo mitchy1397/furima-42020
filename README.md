@@ -34,17 +34,14 @@ Things you may want to cover:
 | first_name         | string  | null: false                    |
 | last_name_kana     | string  | null: false                    |
 | first_name_kana    | string  | null: false                    |
-| birth_year         | integer | null: false                    |
-| birth_month        | integer | null: false                    |
-| birth_day          | integer | null: false                    |
+| birth_day_id       | date    | null: false                    |
 
 
 ## Association
 
-- has_many :items
+- has_many :user_items
+- has_many :items, through: :user_items
 - has_many :orders
-
-
 
 ## items テーブル
 
@@ -55,16 +52,16 @@ Things you may want to cover:
 | item_category_id        | integer     | null: false                    |
 | item_condition_id       | integer     | null: false                    |
 | shipping_free_player_id | integer     | null: false                    |
-| location_id             | integer     | null: false                    |
+| prefecture_id           | integer     | null: false                    |
 | days_to_ship_id         | integer     | null: false                    |
 | price                   | integer     | null: false                    |
-| profit                  | integer     | null: false                    |
 | user                    | references  | null: false, foreign_key: true |
 
 
 ## Association
 
-- has_many :comments
+- has_many :user_items
+- has_many :users, through: :user_items
 - has_one :order
 
 
@@ -73,12 +70,25 @@ Things you may want to cover:
 
 | Column          | Type        | Options                        |
 | ----------------| ----------- | ------------------------------ |
-| postal_code     | integer     | null: false                    |
-| prefecture      | integer     | null: false                    |
-| city            | text        | null: false                    |
-| address_line1   | text        | null: false                    |
-| address_line2   | text        |                                |
-| phone_number    | integer     | null: false                    |
+| postal_code     | string      | null: false                    |
+| prefecture_id   | integer     | null: false                    |
+| city            | string      | null: false                    |
+| house_number    | string      | null: false                    |
+| building_name   | string      |                                |
+| phone_number    | string      | null: false                    |
+| user            | references  | null: false, foreign_key: true |
+| item            | references  | null: false, foreign_key: true |
+
+
+### Association
+
+- belongs_to :user
+- belongs_to :item
+
+## user_items  テーブル
+
+| Column          | Type        | Options                        |
+| ----------------| ----------- | ------------------------------ |
 | user            | references  | null: false, foreign_key: true |
 | item            | references  | null: false, foreign_key: true |
 
