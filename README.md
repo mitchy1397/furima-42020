@@ -34,14 +34,13 @@ Things you may want to cover:
 | first_name         | string  | null: false                    |
 | last_name_kana     | string  | null: false                    |
 | first_name_kana    | string  | null: false                    |
-| birth_day_id       | date    | null: false                    |
+| birth_day          | date    | null: false                    |
 
 
 ## Association
 
-- has_many :user_items
-- has_many :items, through: :user_items
-- has_many :orders
+- has_many :items
+- has_many :purchases
 
 ## items テーブル
 
@@ -60,9 +59,8 @@ Things you may want to cover:
 
 ## Association
 
-- has_many :user_items
-- has_many :users, through: :user_items
-- has_one :order
+- belongs_to :user
+- has_one :purchase
 
 
 
@@ -78,14 +76,14 @@ Things you may want to cover:
 | phone_number    | string      | null: false                    |
 | user            | references  | null: false, foreign_key: true |
 | item            | references  | null: false, foreign_key: true |
+| purchase        | references  | null: false, foreign_key: true |
 
 
 ### Association
 
-- belongs_to :user
-- belongs_to :item
+- belongs_to :purchase
 
-## user_items  テーブル
+## purchases  テーブル
 
 | Column          | Type        | Options                        |
 | ----------------| ----------- | ------------------------------ |
@@ -97,6 +95,7 @@ Things you may want to cover:
 
 - belongs_to :user
 - belongs_to :item
+- has_one :order
 
 
 
